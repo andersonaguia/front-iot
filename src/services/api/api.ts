@@ -1,7 +1,5 @@
 import axios from "axios";
 
-import { deviceData } from "../../contexts/devices/Devices.interfaces";
-
 const api = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
