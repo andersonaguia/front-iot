@@ -16,8 +16,8 @@ export const DevicesProvider: React.FC<DevicesProviderProps> = ({
   const handleDevices = async () => {
     await findActualValue()
       .then((res) => {
-        if (res.statusCode == 200) {
-          setDevice(res.data);
+        if (res.status == 200) {
+          setDevice(res.data.body.data);
           setControl(!control);
         }
       })
@@ -34,7 +34,7 @@ export const DevicesProvider: React.FC<DevicesProviderProps> = ({
     const intervalId = setInterval(() => {
       console.log("Device: ", device);
       handleDevices();
-    }, 15000);
+    }, 5000);
     return () => clearInterval(intervalId);
   }, []);
 
