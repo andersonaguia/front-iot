@@ -16,7 +16,7 @@ export const DevicesProvider: React.FC<DevicesProviderProps> = ({
   const handleDevices = async () => {
     await findActualValue()
       .then((res) => {
-        if (res.status == 200) {
+        if (res.data.status == 200) {
           setDevice(res.data.body.data);
           setControl(!control);
         }
