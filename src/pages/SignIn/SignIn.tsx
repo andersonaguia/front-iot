@@ -37,6 +37,7 @@ export const SignIn: React.FC = () => {
   const { theme } = useCustomTheme();
 
   const handleOpenModal = () => {
+    console.log(open);
     setOpen(true);
   };
 

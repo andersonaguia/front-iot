@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import { ModalContainer, ModalItems } from "./modal.styles";
 
 type Props = {
@@ -14,6 +14,11 @@ export const CustomModal: React.FC<Props> = ({
   open,
   children,
 }) => {
+
+  useEffect(() => {
+    console.log(open);
+    handleOpen();
+  })
   return (
     <ModalContainer onClick={handleClose}>
       <div>

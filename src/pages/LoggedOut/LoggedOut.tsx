@@ -16,7 +16,7 @@ export const LoggedOut: React.FC = () => {
   const { device, control } = useDevices();
 
   useEffect(() => {
-    console.log("Cadê o id");
+    console.log(control);
     console.log(device);
   }, [device]);
 

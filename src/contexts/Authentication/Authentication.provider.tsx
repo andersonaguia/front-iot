@@ -23,6 +23,7 @@ export const AuthenticationProvider: React.FC<AuthenticationProviderProps> = ({
     if (storageData) {
       setToken(storageData);
       setIsAuthenticated(true);
+      console.log(isExpired);
     }
   }, [token]);
 
@@ -51,6 +52,7 @@ export const AuthenticationProvider: React.FC<AuthenticationProviderProps> = ({
         );
         setIsAuthenticated(false);
         setLoading(false);
+        console.log(error);
       });
   };
 
