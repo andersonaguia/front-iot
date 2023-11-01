@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CardStyled, H2Styled, H3Styled, UlStyled } from "./Card.styles";
 import { FaHotjar } from "react-icons/fa";
 import { TbTemperatureCelsius } from "react-icons/tb";
 import { BsSnow2 } from "react-icons/bs";
-import {PiThermometerHot} from "react-icons/pi";
+import { PiThermometerHot } from "react-icons/pi";
 import { device } from "../../contexts/devices/Devices.interfaces";
 interface Props {
   deviceData: device;
@@ -39,8 +39,13 @@ export const Card: React.FC<Props> = (props) => {
     console.log("clicou no botão ");
   };
 
+  useEffect(() => {
+    console.log(isOn);
+    setIsOn(!isOn);
+    handleClick();
+  }, []);
+
   return (
-    
     <CardStyled className={defineClassByTemp(deviceData.value)} opacity={1}>
       {defineIconByTemp(deviceData.value)}
       <UlStyled>
