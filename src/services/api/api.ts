@@ -10,13 +10,13 @@ const api = axios.create({
   },
 });
 
-export const findActualValue = async (): Promise<deviceData> => {
+export const findActualValue = async (): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
       const result = await api.get(
         "/thermistordata/findactualvalue/1"
       );
-      resolve(result.data.body);
+      resolve(result);
     } catch (error) {
       reject(error);
     }
