@@ -83,8 +83,7 @@ export const DevicesProvider: React.FC<DevicesProviderProps> = ({
     await findActualValue()
       .then((res) => {
         if (res.statusCode == 200) {
-          //setDevice(res.data);
-          setDevice(mocDevice);
+          setDevice(res.data);
           setControl(!control);
         }
       })
