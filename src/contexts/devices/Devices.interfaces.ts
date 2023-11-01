@@ -26,11 +26,6 @@ export interface device {
   thermistor: thermistor;
 }
 
-export interface deviceData {
-  statusCode: number;
-  data: device[];
-}
-
 export interface DevicesInterfaces {
   handleDevices: () => void;
   device: device[];
