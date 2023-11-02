@@ -6,7 +6,7 @@ services:
       context: .  
       dockerfile: Dockerfile
     environment:
-      - VITE_BASE_URL=
+      - VITE_BASE_URL=${VITE_BASE_URL}
     ports:
       - "80:80"
     container_name: react-front-api
