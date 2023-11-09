@@ -8,7 +8,7 @@ export const CardStyled = styled.div<CardProps>`
   display: flex;
   flex-direction: column;
   width: 14rem;
-  height: 11rem;
+  height: 10rem;
   border-radius: 10px;
   padding: 1rem;
 
@@ -43,7 +43,7 @@ export const PStyled = styled.p`
 
 export const H2Styled = styled.h2`
   padding-bottom: 1rem;
-  font-size: 3rem;
+  font-size: 2.5rem;
 
   &.on {
     color: ${({ theme }) => theme.text.off};
