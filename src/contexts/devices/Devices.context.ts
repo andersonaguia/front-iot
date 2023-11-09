@@ -3,6 +3,9 @@ import { DevicesInterfaces } from "./Devices.interfaces";
 
 export const DevicesContext = createContext<DevicesInterfaces>({
   handleDevices: () => Promise.resolve(),
+  handleRelays: () => Promise.resolve(),
+  handleNewRelayState: () => Promise.resolve(),
   device: [],
   control: false,
+  relays: [],
 });

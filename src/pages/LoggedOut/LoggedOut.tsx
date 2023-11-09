@@ -10,15 +10,21 @@ import { useEffect } from "react";
 import { Card } from "../../components/Card/Card";
 import { Loading } from "../../components/Loading/Loading";
 import { useDevices } from "../../contexts/devices/useDevices";
+import { CardRelay } from "../../components/Card/Relay/CardRelay";
 
 export const LoggedOut: React.FC = () => {
   const { theme } = useCustomTheme();
-  const { device, control } = useDevices();
+  const { device, control, relays } = useDevices();
 
   useEffect(() => {
     console.log(control);
     console.log(device);
-  }, [device]);
+    console.log(relays);
+  }, [device.length, relays.length, control]);
+
+  if (!control) {
+    return <Loading />;
+  }
 
   return (
     <ThemeProvider theme={theme == "light" ? themeLight : themeDark}>
@@ -29,15 +35,17 @@ export const LoggedOut: React.FC = () => {
             <>
               {device.length > 0 ? (
                 device.map((device) => {
-                  return (
-                    <Card
-                      key={device.id}
-                      deviceData={device}
-                    />
-                  );
+                  return <Card key={device.id} deviceData={device} />;
                 })
               ) : (
                 <Loading />
+              )}
+              {relays.length > 0 ? (
+                relays.map((relay) => {
+                  return <CardRelay key={relay.id} relayData={relay} />;
+                })
+              ) : (
+                null
               )}
             </>
           }
@@ -46,7 +54,7 @@ export const LoggedOut: React.FC = () => {
       </Background>
     </ThemeProvider>
   );
-/*
+  /*
   return (
     <ThemeProvider theme={theme == "light" ? themeLight : themeDark}>
       <Background>
