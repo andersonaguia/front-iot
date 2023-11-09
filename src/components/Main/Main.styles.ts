@@ -8,5 +8,5 @@ justify-items: center;
 width: 100%;
 min-height: 85vh;
 background-color: ${({theme}) => theme.colors.primary};
-padding: 0 2rem;
+padding: 2rem;
 `
