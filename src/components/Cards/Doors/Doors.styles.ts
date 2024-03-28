@@ -7,11 +7,13 @@ interface CardProps {
 export const CardStyled = styled.div<CardProps>`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   width: 14rem;
-  height: 4rem;
+  height: 3rem;
   border-radius: 10px;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
 
   opacity: ${(props) => props.opacity || 1};
 
@@ -57,9 +59,8 @@ export const ButtonStyled = styled.button`
   border: none;
   cursor: pointer;
   background-color: transparent;
-  
+
   &:hover {
     opacity: 0.8;
   }
 `;
-

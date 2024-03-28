@@ -7,8 +7,10 @@ interface CardProps {
 export const CardStyled = styled.div<CardProps>`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 14rem;
-  height: 10rem;
+  height: 8rem;
   border-radius: 10px;
   padding: 1rem;
 

@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-import { CardStyled, H2Styled, H3Styled, UlStyled } from "./Card.styles";
-import { FaHotjar } from "react-icons/fa";
+import { CardStyled, H2Styled, H3Styled, UlStyled } from "./Temperatures.styles";
 import { TbTemperatureCelsius } from "react-icons/tb";
-import { BsSnow2 } from "react-icons/bs";
-import { PiThermometerHot } from "react-icons/pi";
-import { device } from "../../contexts/devices/Devices.interfaces";
+import { device } from "../../../contexts/Devices/Devices.interfaces";
 interface Props {
   deviceData: device;
 }
@@ -24,30 +21,12 @@ export const Card: React.FC<Props> = (props) => {
     }
   };
 
-  const defineIconByTemp = (temp: string) => {
-    const t = parseFloat(temp);
-    if (t <= 22) {
-      return <BsSnow2 size={25} color={"#eeeeee"} />;
-    } else if (t > 22 && t <= 25) {
-      return <PiThermometerHot size={25} color={"#222222"} />;
-    } else {
-      return <FaHotjar size={25} color={"#eeeeee"} />;
-    }
-  };
-
-  const handleClick = () => {
-    console.log("clicou no botão ");
-  };
-
   useEffect(() => {
-    console.log(isOn);
     setIsOn(!isOn);
-    handleClick();
   }, []);
 
   return (
     <CardStyled className={defineClassByTemp(deviceData.value)} opacity={1}>
-      {defineIconByTemp(deviceData.value)}
       <UlStyled>
         <li>
           <H2Styled className={true ? "on" : "off"}>
@@ -59,7 +38,7 @@ export const Card: React.FC<Props> = (props) => {
         </li>
       </UlStyled>
       <H3Styled className={true ? "on" : "off"}>
-        {deviceData ? deviceData.thermistor.location : ""}
+        {deviceData ? deviceData.thermistor.location.toUpperCase() : ""}
       </H3Styled>
     </CardStyled>
   );

@@ -7,20 +7,20 @@ import { themeLight } from "../../themes/themeLight";
 import { themeDark } from "../../themes/themeDark";
 import { Background } from "../../components/Background/Background";
 import { useEffect } from "react";
-import { Card } from "../../components/Card/Card";
+import { Card } from "../../components/Cards/Temperatures/Temperatures";
 import { Loading } from "../../components/Loading/Loading";
-import { useDevices } from "../../contexts/devices/useDevices";
-import { CardRelay } from "../../components/Card/Relay/CardRelay";
+import { CardRelay } from "../../components/Cards/Relay/Relays";
+import { Doors } from "../../components/Cards/Doors/Doors";
+import { useDevices } from "../../contexts/Devices/useDevices";
+import { useDoors } from "../../contexts/Doors/useDoors";
+import { DivStyled } from "./LoggedOut.styles";
 
 export const LoggedOut: React.FC = () => {
   const { theme } = useCustomTheme();
   const { device, control, relays } = useDevices();
+  const { handleFindAllDoors, doors } = useDoors();
 
-  useEffect(() => {
-    console.log(control);
-    console.log(device);
-    console.log(relays);
-  }, [device.length, relays.length, control]);
+  useEffect(() => {}, [device.length, relays.length, control, doors.length]);
 
   if (!control) {
     return <Loading />;
@@ -33,20 +33,32 @@ export const LoggedOut: React.FC = () => {
         <Main
           children={
             <>
-              {device.length > 0 ? (
-                device.map((device) => {
-                  return <Card key={device.id} deviceData={device} />;
-                })
-              ) : (
-                <Loading />
-              )}
-              {relays.length > 0 ? (
-                relays.map((relay) => {
-                  return <CardRelay key={relay.id} relayData={relay} />;
-                })
-              ) : (
-                null
-              )}
+              <DivStyled>
+                <h2>TEMPERATURAS</h2>
+                {device.length > 0 ? (
+                  device.map((device) => {
+                    return <Card key={device.id} deviceData={device} />;
+                  })
+                ) : (
+                  <Loading />
+                )}
+              </DivStyled>
+              <DivStyled>
+                <h2>DISPOSITIVOS</h2>
+                {relays.length > 0
+                  ? relays.map((relay) => {
+                      return <CardRelay key={relay.id} relayData={relay} />;
+                    })
+                  : null}
+              </DivStyled>
+              <DivStyled>
+                <h2>PORTAS</h2>
+                {doors.length > 0
+                  ? doors.map((door) => {
+                      return <Doors key={door.id} doorData={door} />;
+                    })
+                  : null}
+              </DivStyled>
             </>
           }
         />

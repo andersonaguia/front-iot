@@ -1,16 +1,19 @@
 import { BrowserRouter } from "react-router-dom";
 import { Router } from "./router/Router";
 import { CustomThemeProvider } from "./contexts/CustomTheme/CustomTheme.provider";
-import { DevicesProvider } from "./contexts/devices/Devices.provider";
+import { DoorsProvider } from "./contexts/Doors/Doors.provider";
+import { DevicesProvider } from "./contexts/Devices/Devices.provider";
 
 function App() {
   return (
     <>
       <CustomThemeProvider>
         <DevicesProvider>
-          <BrowserRouter>
-            <Router />
-          </BrowserRouter>
+          <DoorsProvider>
+            <BrowserRouter>
+              <Router />
+            </BrowserRouter>
+          </DoorsProvider>
         </DevicesProvider>
       </CustomThemeProvider>
     </>

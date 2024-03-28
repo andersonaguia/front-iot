@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 export const MainStyled = styled.main`
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-justify-items: center;
+display: flex;
+justify-content: space-evenly;
+
+
 
 width: 100%;
 min-height: 85vh;
