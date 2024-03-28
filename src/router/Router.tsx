@@ -26,7 +26,6 @@ export const Router = () => {
     <Routes>
       <Route path="*" element={<NotFound />}/>
       <Route path="/" element={<LoggedUser />}/>
-
       <Route path="/signin" element={<SignIn />} />
       <Route path="/overview" element={<LoggedOut />} />
     </Routes>
