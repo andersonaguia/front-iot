@@ -6,6 +6,5 @@ export const DevicesContext = createContext<DevicesInterfaces>({
   handleRelays: () => Promise.resolve(),
   handleNewRelayState: () => Promise.resolve(),
   device: [],
-  control: false,
   relays: [],
 });

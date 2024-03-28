@@ -3,9 +3,9 @@ import { LuPowerOff, LuPower } from "react-icons/lu";
 import { relayData } from "../../../contexts/Devices/Devices.interfaces";
 import { ButtonStyled } from "./Relays.styles";
 import { newRelayState } from "../../../services/api/api.interfaces";
-import { useDoors } from "../../../contexts/Doors/useDoors";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDevices } from "../../../contexts/Devices/useDevices";
+import { ButtonLoading } from "../../Loading/Button/ButtonLoading";
 
 interface Props {
   relayData: relayData;
@@ -14,13 +14,12 @@ interface Props {
 export const CardRelay: React.FC<Props> = (props) => {
   const { relayData } = props;
   const { handleNewRelayState } = useDevices();
-  const { handleFindAllDoors } = useDoors();
-
-  useEffect(() => {
-    handleFindAllDoors();
-  }, []);
+  const [oldRelayState, setOldRelayState] = useState<boolean>(
+    relayData.currentLevel
+  );
 
   const handleClick = (relayData: relayData) => {
+    setOldRelayState(!relayData.expectedLevel);
     const newState: newRelayState = {
       relayId: relayData.relay.id,
       expectedLevel: !relayData.expectedLevel,
@@ -28,6 +27,10 @@ export const CardRelay: React.FC<Props> = (props) => {
     };
     handleNewRelayState(newState);
   };
+
+  useEffect(() => {
+    setOldRelayState(relayData.expectedLevel);
+  }, [relayData.expectedLevel]);
 
   return (
     <CardStyled className={relayData.currentLevel ? "on" : "off"} opacity={1}>
@@ -38,13 +41,17 @@ export const CardRelay: React.FC<Props> = (props) => {
           </H3Styled>
         </li>
         <li>
-          <ButtonStyled onClick={() => handleClick(relayData)}>
-            {relayData.currentLevel ? (
-              <LuPower color={"#fca311"} size={25} />
-            ) : (
-              <LuPowerOff color={"silver"} size={25} />
-            )}
-          </ButtonStyled>
+          {oldRelayState != relayData.currentLevel ? (
+            <ButtonLoading />
+          ) : (
+            <ButtonStyled onClick={() => handleClick(relayData)}>
+              {relayData.currentLevel ? (
+                <LuPower color={"#fca311"} size={25} />
+              ) : (
+                <LuPowerOff color={"silver"} size={25} />
+              )}
+            </ButtonStyled>
+          )}
         </li>
       </UlStyled>
     </CardStyled>

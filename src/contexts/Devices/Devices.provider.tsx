@@ -16,7 +16,6 @@ import { newRelayState } from "../../services/api/api.interfaces";
 export const DevicesProvider: React.FC<DevicesProviderProps> = ({
   children,
 }) => {
-  const [control, setControl] = useState<boolean>(false);
   const [device, setDevice] = useState<device[]>([]);
   const [relays, setRelays] = useState<relayData[]>([]);
 
@@ -25,10 +24,10 @@ export const DevicesProvider: React.FC<DevicesProviderProps> = ({
       .then((res) => {
         if (res.data.status == 200) {
           setDevice(res.data.body.data);
-          setControl(!control);
         }
       })
       .catch((error) => {
+        setDevice([]);
         console.log(error);
       });
   };
@@ -38,25 +37,21 @@ export const DevicesProvider: React.FC<DevicesProviderProps> = ({
       .then((res) => {
         if (res.data.status == 200) {
           setRelays(res.data.body.data);
-          setControl(!control);
         }
       })
       .catch((error) => {
+        setRelays([]);
         console.log(error);
       });
   };
 
   const handleNewRelayState = async (relayState: newRelayState) => {
-    console.log("relayData");
-    setControl(!control);
     await setNewRelayState(relayState)
       .then((res) => {
         if (res.data.status == 201) {
-          setControl(false);
         }
       })
       .catch((error) => {
-        setControl(false);
         console.log(error);
       });
   };
@@ -68,9 +63,7 @@ export const DevicesProvider: React.FC<DevicesProviderProps> = ({
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      //console.log("Device: ", device);
       handleDevices();
-      //console.log("Relays: ", relays);
       handleRelays();
     }, 5000);
     return () => clearInterval(intervalId);
@@ -81,7 +74,6 @@ export const DevicesProvider: React.FC<DevicesProviderProps> = ({
     handleRelays,
     handleNewRelayState,
     device,
-    control,
     relays,
   };
 

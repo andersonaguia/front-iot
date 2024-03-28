@@ -4,6 +4,8 @@ import { AccessDoors } from "../../../services/accessControlApi/accessControlApi
 import { ButtonStyled, CardStyled, H3Styled, UlStyled } from "./Doors.styles";
 import { FaLock } from "react-icons/fa";
 import { FaLockOpen } from "react-icons/fa";
+import { ButtonLoading } from "../../Loading/Button/ButtonLoading";
+import { useEffect, useState } from "react";
 
 interface Props {
   doorData: Door;
@@ -12,16 +14,21 @@ interface Props {
 export const Doors: React.FC<Props> = (props) => {
   const { doorData } = props;
   const { handleAccessDoors } = useDoors();
+  const [oldDoorState, setOldDoorState] = useState<boolean>(doorData.isOpen);
 
   const handleClick = (doorData: Door) => {
+    setOldDoorState(!doorData.isOpen);
     const data: AccessDoors = {
       doorId: doorData.id,
       isOpen: !doorData.isOpen,
       cardNumber: "123456",
     };
-    console.log(doorData);
     handleAccessDoors(data);
   };
+
+  useEffect(() => {
+    setOldDoorState(doorData.isOpen);
+  }, [doorData.isOpen]);
 
   return (
     <CardStyled className={doorData.isOpen ? "on" : "off"} opacity={1}>
@@ -32,13 +39,17 @@ export const Doors: React.FC<Props> = (props) => {
           </H3Styled>
         </li>
         <li>
-          <ButtonStyled onClick={() => handleClick(doorData)}>
-            {doorData.isOpen ? (
-              <FaLockOpen color={"#333333"} size={25} />
-            ) : (
-              <FaLock color={"#fca311"} size={25} />
-            )}
-          </ButtonStyled>
+          {oldDoorState != doorData.isOpen ? (
+            <ButtonLoading />
+          ) : (
+            <ButtonStyled onClick={() => handleClick(doorData)}>
+              {doorData.isOpen ? (
+                <FaLockOpen color={"#333333"} size={20} />
+              ) : (
+                <FaLock color={"#fca311"} size={20} />
+              )}
+            </ButtonStyled>
+          )}
         </li>
       </UlStyled>
     </CardStyled>

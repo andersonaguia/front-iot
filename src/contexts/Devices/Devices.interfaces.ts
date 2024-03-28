@@ -46,6 +46,5 @@ export interface DevicesInterfaces {
   handleRelays: () => void;
   handleNewRelayState: (handleNewRelayState: newRelayState) => void;
   device: device[];
-  control: boolean;
   relays: relayData[];
 }

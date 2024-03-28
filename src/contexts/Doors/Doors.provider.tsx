@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { DoorsInterfaces, DoorsProviderProps, Door } from "./Doors.interfaces";
 import { DoorsContext } from "./Doors.context";
-import { accessDoors, findAllDoors } from "../../services/accessControlApi/accessControlApi";
+import {
+  accessDoors,
+  findAllDoors,
+} from "../../services/accessControlApi/accessControlApi";
 import { AccessDoors } from "../../services/accessControlApi/accessControlApi.interfaces";
 
 export const DoorsProvider: React.FC<DoorsProviderProps> = ({ children }) => {
-  const [control, setControl] = useState<boolean>(false);
   const [doors, setDoors] = useState<Door[]>([]);
 
   const handleFindAllDoors = async () => {
@@ -13,10 +15,10 @@ export const DoorsProvider: React.FC<DoorsProviderProps> = ({ children }) => {
       .then((res) => {
         if (res.status == 200) {
           setDoors(res.data);
-          setControl(!control);
         }
       })
       .catch((error) => {
+        setDoors([]);
         console.log(error);
       });
   };
@@ -25,13 +27,16 @@ export const DoorsProvider: React.FC<DoorsProviderProps> = ({ children }) => {
     await accessDoors(data)
       .then((res) => {
         if (res.status == 200) {
-          setControl(!control);
         }
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    handleFindAllDoors();
+  }, []);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
