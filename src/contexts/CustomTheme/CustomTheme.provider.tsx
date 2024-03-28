@@ -18,7 +18,6 @@ export const CustomThemeProvider: React.FC<CustomThemeProviderProps> = ({
   }, [theme]);
 
   useEffect(() => {
-    console.log("TEMA: ", theme);
   }, [theme]);
 
   const handleTheme = () => {
