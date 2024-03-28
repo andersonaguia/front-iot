@@ -8,7 +8,6 @@ import { themeDark } from "../../themes/themeDark";
 import { Background } from "../../components/Background/Background";
 import { useEffect } from "react";
 import { Card } from "../../components/Cards/Temperatures/Temperatures";
-import { Loading } from "../../components/Loading/Loading";
 import { CardRelay } from "../../components/Cards/Relay/Relays";
 import { Doors } from "../../components/Cards/Doors/Doors";
 import { useDevices } from "../../contexts/Devices/useDevices";
@@ -17,15 +16,11 @@ import { DivStyled } from "./LoggedOut.styles";
 
 export const LoggedOut: React.FC = () => {
   const { theme } = useCustomTheme();
-  const { device, control, relays } = useDevices();
-  const { handleFindAllDoors, doors } = useDoors();
+  const { device, relays } = useDevices();
+  const { doors } = useDoors();
 
-  useEffect(() => {}, [device.length, relays.length, control, doors.length]);
-
-  if (!control) {
-    return <Loading />;
-  }
-
+  useEffect(() => {}, [device.length, relays.length, doors.length]);
+  
   return (
     <ThemeProvider theme={theme == "light" ? themeLight : themeDark}>
       <Background>
@@ -40,7 +35,7 @@ export const LoggedOut: React.FC = () => {
                     return <Card key={device.id} deviceData={device} />;
                   })
                 ) : (
-                  <Loading />
+                  <span>Carregando...</span>
                 )}
               </DivStyled>
               <DivStyled>
@@ -49,7 +44,7 @@ export const LoggedOut: React.FC = () => {
                   ? relays.map((relay) => {
                       return <CardRelay key={relay.id} relayData={relay} />;
                     })
-                  : null}
+                  : <span>Carregando...</span>}
               </DivStyled>
               <DivStyled>
                 <h2>PORTAS</h2>
@@ -57,7 +52,7 @@ export const LoggedOut: React.FC = () => {
                   ? doors.map((door) => {
                       return <Doors key={door.id} doorData={door} />;
                     })
-                  : null}
+                  : <span>Carregando...</span>}
               </DivStyled>
             </>
           }

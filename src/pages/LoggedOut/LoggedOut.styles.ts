@@ -9,4 +9,8 @@ export const DivStyled = styled.div`
   & h2 {
     color: ${({ theme }) => theme.text.primary};
   }
+
+  & span {
+    color: ${({ theme }) => theme.text.primary};
+  }
 `;
