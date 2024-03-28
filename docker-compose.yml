@@ -1,4 +1,4 @@
-version: '1.0.0'
+version: '1.0.1'
 
 services:
   react-app:
@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile
     environment:
       - VITE_BASE_URL=${VITE_BASE_URL}
+      - VITE_BASE_URL_ACCESS_CONTROL=${VITE_BASE_URL_ACCESS_CONTROL}
     ports:
       - "80:80"
     container_name: react-front-api
+    restart: always
